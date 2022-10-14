@@ -1,7 +1,8 @@
 window.onload = event => {
     const board = document.getElementById("board");
     const tiles = board.getElementsByTagName("div");
-    
+    const announcer = document.getElementById("status");
+    let gameEnded, lastPlayer="", arr;
 
     tileLayout();
 
@@ -10,7 +11,9 @@ window.onload = event => {
         arr = new Array(9);
         lastPlayer = "O";
 
+        let index= 0;
         for (let shape of tiles) {
+            shape.id = index++; // Allow players to alternate
             shape.classList.add("square"); // Adds squares to board
             
             shape.onclick = (event) => {
@@ -27,6 +30,9 @@ window.onload = event => {
                     arr[event.target.id] = "X";
                     lastPlayer = "X"; //Adds X to square if lp=O
                 }
+
+                WhoWon(lastPlayer); //Determining winner
+
             }; //End of shape.onlick=(event)
              
             shape.onmouseover = event =>{
@@ -40,7 +46,25 @@ window.onload = event => {
             }; // Tile color goes back to normal when its not hovered
 
         } //End of for loop-(let shape of tiles)
-    }//End of function tileLayout
+
+        //Determining the winner
+        WhoWon = (lp) => {    
+            if ((arr[0]===lp && arr[1]===lp && arr[2]===lp) ||
+                (arr[3]===lp && arr[4]===lp && arr[5]===lp) ||
+                (arr[6]===lp && arr[7]===lp && arr[8]===lp) ||
+        
+                (arr[0]===lp && arr[3]===lp && arr[6]===lp) ||
+                (arr[1]===lp && arr[4]===lp && arr[7]===lp) ||
+                (arr[2]===lp && arr[5]===lp && arr[8]===lp) ||
+                
+                (arr[0]===lp && arr[4]===lp && arr[8]===lp) ||
+                (arr[2]===lp && arr[4]===lp && arr[6]===lp) ){
+                    announcer.classList.add("you-won");
+                    announcer.innerHTML= `Congratulations! ${lp} is the winner!`;
+                    gameEnded=true;
+                }
+        } //End of WhoWon
+    } //End of function tileLayout
 } //End of code
  
 
