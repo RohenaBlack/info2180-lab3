@@ -2,9 +2,27 @@ window.onload = event => {
     const board = document.getElementById("board");
     const tiles = board.getElementsByTagName("div");
     const announcer = document.getElementById("status");
+    const btn= document.querySelector("button"); //New-game button
+    
     let gameEnded, lastPlayer="", arr;
 
     tileLayout();
+
+    btn.addEventListener("click", function(){
+        gameEnded= false;
+        lastPlayer = "O";
+        
+        arr= new Array(9);
+    
+        announcer.classList.remove("you-won");
+        announcer.innerHTML = "Move your mouse over a square and click to play an X or an O.";
+        
+        for(shape of tiles){
+          shape.classList.remove("X");
+          shape.classList.remove("O");
+          shape.innerText = "";          
+        }
+    }); //New-Game Button
 
     function tileLayout() {
         gameEnded= false;
