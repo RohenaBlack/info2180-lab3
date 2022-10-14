@@ -6,6 +6,7 @@ window.onload = event => {
     tileLayout();
 
     function tileLayout() {
+        gameEnded= false;
         arr = new Array(9);
         lastPlayer = "O";
 
@@ -28,6 +29,16 @@ window.onload = event => {
                 }
             }; //End of shape.onlick=(event)
              
+            shape.onmouseover = event =>{
+                if(!gameEnded){
+                    event.target.classList.toggle("hover");
+                } 
+            }; // Change tile color to coral when hovered
+    
+            shape.onmouseleave = event =>{
+                event.target.classList.remove("hover");
+            }; // Tile color goes back to normal when its not hovered
+
         } //End of for loop-(let shape of tiles)
     }//End of function tileLayout
 } //End of code
