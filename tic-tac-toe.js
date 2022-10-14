@@ -3,7 +3,7 @@ window.onload = event => {
     const tiles = board.getElementsByTagName("div");
     const announcer = document.getElementById("status");
     const btn= document.querySelector("button"); //New-game button
-    
+
     let gameEnded, lastPlayer="", arr;
 
     tileLayout();
@@ -31,10 +31,12 @@ window.onload = event => {
 
         let index= 0;
         for (let shape of tiles) {
-            shape.id = index++; // Allow players to alternate
-            shape.classList.add("square"); // Adds squares to board
+            shape.id = index++; //Allow players to alternate
+            shape.classList.add("square"); //Adds squares to board
             
             shape.onclick = (event) => {
+                
+                if (shape.innerHTML!="" || gameEnded) return; //Prevents cheating
     
                 if (lastPlayer === "X") {
                     event.target.innerText = "O";
